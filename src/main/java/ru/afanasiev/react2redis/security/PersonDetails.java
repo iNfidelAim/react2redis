@@ -2,10 +2,12 @@ package ru.afanasiev.react2redis.security;
 
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.afanasiev.react2redis.models.Person;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class PersonDetails implements UserDetails {
     private final Person person;
@@ -16,7 +18,9 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        //Можно тут возвращать еще в виде листа например: SHOW_ACCOUNT, WITHDRAWAL_MONEY etc. т.е. действия которые
+        //может совершать пользователь, но тут только роль (админ или юзер)
+        return Collections.singletonList(new SimpleGrantedAuthority(person.getRole()));
     }
 
     @Override
