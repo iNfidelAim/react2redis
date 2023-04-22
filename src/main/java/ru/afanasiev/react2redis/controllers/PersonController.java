@@ -4,14 +4,16 @@ package ru.afanasiev.react2redis.controllers;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import ru.afanasiev.react2redis.security.PersonDetails;
 
-@RequestMapping("/login")
+
+@Controller
 public class PersonController {
 
-    @GetMapping("/login")
+    @GetMapping("/hello")
     public String sayHello() {
         return "hello";
     }
@@ -24,6 +26,6 @@ public class PersonController {
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         System.out.println(personDetails.getPerson());
 
-        return "Somebody return";
+        return "hello";
     }
 }
