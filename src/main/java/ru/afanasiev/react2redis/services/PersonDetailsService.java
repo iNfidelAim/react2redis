@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import ru.afanasiev.react2redis.models.Person;
 import ru.afanasiev.react2redis.repositories.PeopleRepository;
 import ru.afanasiev.react2redis.security.PersonDetails;
@@ -30,6 +31,8 @@ public class PersonDetailsService  implements UserDetailsService  {
            throw  new UsernameNotFoundException("User not found!");
 
        return new PersonDetails(person.get());
-
     }
+/*    public Flux<Person> findById(String user) {
+        return peopleRepository.findById(user);
+    }*/
 }
