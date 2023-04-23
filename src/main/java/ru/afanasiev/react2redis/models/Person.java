@@ -29,8 +29,12 @@ public class Person {
     public Person() {
     }
 
-    public Person(String username) {
+    public Person(int id, String username, String password, String role, Inn inn) {
+        this.id = id;
         this.username = username;
+        this.password = password;
+        this.role = role;
+
     }
 
     public int getId() {
@@ -71,6 +75,8 @@ public class Person {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", inn=" +
                 '}';
     }
 }
