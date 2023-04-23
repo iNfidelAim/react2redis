@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import ru.afanasiev.react2redis.models.Person;
 import ru.afanasiev.react2redis.security.PersonDetails;
 import ru.afanasiev.react2redis.services.AdminService;
 
