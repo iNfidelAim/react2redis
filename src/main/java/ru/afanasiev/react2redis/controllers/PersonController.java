@@ -3,23 +3,29 @@ package ru.afanasiev.react2redis.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.afanasiev.react2redis.models.Person;
 import ru.afanasiev.react2redis.repositories.PeopleRepository;
 import ru.afanasiev.react2redis.security.PersonDetails;
 import ru.afanasiev.react2redis.services.AdminService;
+import ru.afanasiev.react2redis.services.PersonService;
 
 
-
-@Controller
+@CrossOrigin(origins = "http://localhost:8081")
+@RestController
+@RequestMapping("/api")
 public class PersonController {
     private final AdminService adminService;
     private final PeopleRepository peopleRepository;
+
+    PersonService personService;
+
 
     @Autowired
     public PersonController(AdminService adminService, PeopleRepository peopleRepository) {
@@ -42,15 +48,20 @@ public class PersonController {
 
         return "hello";
     }
- /*   @GetMapping("/showUserInfoReact")
-    public Flux<Person> showUserInfoReact(String s) {
+    @GetMapping("/people")
+    @ResponseStatus(HttpStatus.OK)
+    public Flux<Person> getAllTutorials(@RequestParam(required = false) String title) {
+        if (title == null)
+            return personService.findAll();
+        else
+            return personService.findByTitleContaining(title);
+    }
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-        System.out.println(personDetails.getPerson());
-
-        return peopleRepository.findById(s);
-    }*/
+    @GetMapping("/people/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<Person> getTutorialById(@PathVariable("id") int id) {
+        return personService.findById(id);
+    }
 
 
     @GetMapping("/admin")
