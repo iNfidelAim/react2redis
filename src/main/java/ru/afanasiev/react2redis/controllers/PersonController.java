@@ -44,6 +44,7 @@ public class PersonController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        Person currenPerson = (Person) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(personDetails.getPerson());
 
         return "hello";
@@ -54,8 +55,11 @@ public class PersonController {
         if (title == null)
             return personService.findAll();
         else
-            return personService.findByTitleContaining(title);
+            return personService.findById(title);
     }
+
+
+
 
     @GetMapping("/people/{id}")
     @ResponseStatus(HttpStatus.OK)

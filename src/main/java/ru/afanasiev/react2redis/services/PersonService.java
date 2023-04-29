@@ -16,7 +16,7 @@ public class PersonService {
         return peopleRepository.findAll();
     }
 
-    public Flux<Person> findByTitleContaining(String title) {
+    public Flux<Person> findById(String title) {
         return peopleRepository.findById(title);
     }
 
